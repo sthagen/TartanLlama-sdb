@@ -1,5 +1,14 @@
 # Errata
 
+## Chapter 6: Testing Registers with x64 Assembly
+
+### Missing include for *sdb/error.hpp*
+
+`parse_vector` in *sdb/include/libsdb/parse.hpp* uses `sdb::error` but includes neither the required header nor any header that includes it.
+
+```diff
++ #include <libsdb/error.hpp>
+```
 ## Chapter 7: Software Breakpoints
 
 ### All `cproc` initializations are wrong

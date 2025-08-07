@@ -70,3 +70,9 @@ bits of the address must be 0 for the address to be aligned. Because address & (
 + address & 0b111,
 we ensure that this calculation results in 0.
 ```
+
+## Chapter 12: Debug Information
+
+### p335 - Strict DWARF needed
+
+The "Correct DWARF Language" test checks against `DW_LANG_C_plus_plus`. However, Clang may output DWARF 5 attributes such as `DW_LANG_C_plus_plus_14` even in DWARF 4 mode, unless `-gdwarf-strict` is passed. The code should either pass this flag, or test against the `DW_LANG_C_plus_plus_XXX` values [specified here](https://dwarfstd.org/languages.html).

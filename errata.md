@@ -2,16 +2,18 @@
 
 ## Chapter 6: Testing Registers with x64 Assembly
 
-### Missing include for *sdb/error.hpp*
+### p120 - Missing include for *sdb/error.hpp*
 
 `parse_vector` in *sdb/include/libsdb/parse.hpp* uses `sdb::error` but includes neither the required header nor any header that includes it.
 
 ```diff
+  #include <array>
+  #include <cstddef>
 + #include <libsdb/error.hpp>
 ```
 ## Chapter 7: Software Breakpoints
 
-### All `cproc` initializations are wrong
+### p141-142 - All `cproc` initializations are wrong
 
 The initializations of `cproc` in *sdb/test/tests.cpp* initialize `const` references to `std::unique_ptr`, but `std::unique_ptr` doesn't maintain `const` through dereferences, so uses of this operate on non-`const` `sdb::process` objects. These changes fix this, capturing instead `const sdb::process*` pointers:
 
@@ -43,9 +45,19 @@ TEST_CASE("Can iterate breakpoint sites", "[breakpoint]") {
 +   const auto* cproc = proc.get();
 ```
 
+### p143 - Inverted boolean
+
+There is an inverted boolean in the text. The code is correct, however.
+
+```diff
+  We then create a couple of breakpoint sites and ensure that the size increments as expected and that empty now returns
+- true.
++ false.
+```
+
 ## Chapter 9: Hardware Breakpoints and Watchpoints
 
-### Off-by-one error in alignment text
+### p205 - Off-by-one error in alignment text
 
 The text incorrectly describes aligning addresses. The code is correct, however.
 
